@@ -181,39 +181,3 @@ print(np.mean(errors))
 print(np.max(errors), np.min(errors))
 
 print(errors)
-
-#%%
-from menpodetect.dlib.detect import DlibDetector
-import dlib
-from menpofit.error.base import euclidean_error
-import time
-
-test_img = mio.import_image(Path('C:/Users/chang/OneDrive/Desktop/269 Deform/lfpw/testset/image_0002.png'))
-test_img.view()
-
-ff_detector = dlib.get_frontal_face_detector()
-bboxes = DlibDetector(ff_detector)(test_img.as_greyscale())
-fr = fitter.fit_from_bb(test_img.as_greyscale(), bboxes[0], gt_shape = test_img.landmarks['PTS'], max_iters=[15,5])
-fr.view()
-
-print(fr.final_error(compute_error=euclidean_error))
-#%%
-
-det = DlibDetector(ff_detector)
-def calculate_error(img):
-    bboxes = det(img)
-    if len(bboxes) == 0:
-        return None
-    fr = fitter.fit_from_bb(img.as_greyscale(), bboxes[0], gt_shape=img.landmarks['PTS'], max_iters=[15,5])
-    return fr.final_error(compute_error=euclidean_error)
-
-start = time.time()
-errors = [calculate_error(img) for img in mio.import_images(Path('C:/Users/chang/OneDrive/Desktop/269 Deform/lfpw/testset'))]
-end = time.time()
-print(end - start)
-#%%
-import numpy as np
-errors = [e for e in errors if e is not None]
-np.mean(errors)
-#%%
-np.max(errors), np.min(errors)
