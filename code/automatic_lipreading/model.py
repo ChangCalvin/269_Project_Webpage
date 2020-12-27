@@ -9,7 +9,7 @@ import torchvision
 
 class LipNet_LRW(torch.nn.Module):
     """
-    Implemetnation from https://github.com/Fengdalu/LipNet-PyTorch/
+    Implemetnation from https://github.com/Fengdalu/LipNet-PyTorch/ with modifications
     """
     def __init__(self, vocab_size, dropout_p=0.5):
         super(LipNet_LRW, self).__init__()

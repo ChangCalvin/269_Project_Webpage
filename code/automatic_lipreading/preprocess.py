@@ -63,6 +63,9 @@ def dlib_features_from_frame(frame, frame_dims, dlib_detector, dlib_predictor, n
     return features
 
 def dlib_get_frames_mouth_only(path, dlib_detector, dlib_predictor, normalize=True):
+    """
+    Implemetnation from https://github.com/rizkiarm/LipNet/ with modifications
+    """
     MOUTH_WIDTH = 100
     MOUTH_HEIGHT = 50
     HORIZONTAL_PAD = 0.19
